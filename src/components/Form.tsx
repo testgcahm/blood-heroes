@@ -23,6 +23,7 @@ const ENTRY_KEYS = [
     'entry.1203586957_day', // If yes, when did you donate last time? day
     'entry.706128420', // How many times have you donated blood if you did?
     'entry.831136185', // Are you willing to donate if needed?
+    'entry.1853889000' // Recorded Email
 ];
 
 const initialState = {
@@ -45,6 +46,7 @@ const initialState = {
     lastDonationDay: '',
     donationCount: '',
     willingToDonate: '',
+    recordedEmail: ''
 };
 
 const bloodGroups = [
@@ -62,6 +64,7 @@ const Form = ({ userEmail }: FormProps) => {
     const [form, setForm] = useState({
         ...initialState,
         email: userEmail,
+        recordedEmail: userEmail
     });
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -116,6 +119,7 @@ const Form = ({ userEmail }: FormProps) => {
         data.append(ENTRY_KEYS[16], form.lastDonationDay || '');
         data.append(ENTRY_KEYS[17], form.donationCount || '');
         data.append(ENTRY_KEYS[18], form.willingToDonate);
+        data.append(ENTRY_KEYS[19], form.recordedEmail);
         try {
             await fetch(GOOGLE_FORM_URL, {
                 method: 'POST',
@@ -158,12 +162,12 @@ const Form = ({ userEmail }: FormProps) => {
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Age <span className="text-red-500">*</span></label>
-                    <input name="age" type="number" min="16" max="70" value={form.age} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your age" />
+                    <input name="age" type="number" min={5} max={80} value={form.age} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your age" />
                 </div>
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Gender <span className="text-red-500">*</span></label>
-                    <select name="gender" value={form.gender} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300">
+                    <select name="gender" value={form.gender} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300 cursor-pointer">
                         <option value="">Select</option>
                         {genders.map(g => <option key={g} value={g}>{g}</option>)}
                     </select>
@@ -214,6 +218,7 @@ const Form = ({ userEmail }: FormProps) => {
                                     checked={form.bloodScreening === opt}
                                     onChange={handleChange}
                                     required
+                                    className="cursor-pointer"
                                 />
                                 {opt}
                             </label>
@@ -233,6 +238,7 @@ const Form = ({ userEmail }: FormProps) => {
                                     checked={form.chronicIllness === opt}
                                     onChange={handleChange}
                                     required
+                                    className="cursor-pointer"
                                 />
                                 {opt}
                             </label>
@@ -252,6 +258,7 @@ const Form = ({ userEmail }: FormProps) => {
                                     checked={form.everDonated === opt}
                                     onChange={handleChange}
                                     required
+                                    className="cursor-pointer"
                                 />
                                 {opt}
                             </label>
@@ -259,25 +266,29 @@ const Form = ({ userEmail }: FormProps) => {
                     </div>
                 </div>
 
-                <div>
-                    <label className="block font-semibold text-red-900 mb-1">If yes, when did you donate last time?</label>
-                    <div className="flex gap-2 items-center">
-                        {/* Calendar input */}
-                        <input
-                            type="date"
-                            className="p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300"
-                            value={form.lastDonationYear && form.lastDonationMonth && form.lastDonationDay ? `${form.lastDonationYear}-${form.lastDonationMonth.padStart(2, '0')}-${form.lastDonationDay.padStart(2, '0')}` : ''}
-                            onChange={handleDateChange}
-                            max={new Date().toISOString().split('T')[0]}
-                            placeholder="Pick date"
-                        />
-                    </div>
-                </div>
-
-                <div>
-                    <label className="block font-semibold text-red-900 mb-1">How many times have you donated blood if you did?</label>
-                    <input name="donationCount" type="number" min="0" value={form.donationCount} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter number of donations" />
-                </div>
+                {/* Conditional fields: only show if everDonated is 'Yes' */}
+                {form.everDonated === 'Yes' && (
+                    <>
+                        <div>
+                            <label className="block font-semibold text-red-900 mb-1">If yes, when did you donate last time?</label>
+                            <div className="flex gap-2 items-center">
+                                {/* Calendar input */}
+                                <input
+                                    type="date"
+                                    className="p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300 cursor-pointer"
+                                    value={form.lastDonationYear && form.lastDonationMonth && form.lastDonationDay ? `${form.lastDonationYear}-${form.lastDonationMonth.padStart(2, '0')}-${form.lastDonationDay.padStart(2, '0')}` : ''}
+                                    onChange={handleDateChange}
+                                    max={new Date().toISOString().split('T')[0]}
+                                    placeholder="Pick date"
+                                />
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block font-semibold text-red-900 mb-1">How many times have you donated blood if you did?</label>
+                            <input name="donationCount" type="number" min="0" value={form.donationCount} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter number of donations" />
+                        </div>
+                    </>
+                )}
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Are you willing to donate if needed? <span className="text-red-500">*</span></label>
@@ -291,6 +302,7 @@ const Form = ({ userEmail }: FormProps) => {
                                     checked={form.willingToDonate === opt}
                                     onChange={handleChange}
                                     required
+                                    className="cursor-pointer"
                                 />
                                 {opt}
                             </label>

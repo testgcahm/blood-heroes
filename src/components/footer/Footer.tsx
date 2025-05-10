@@ -49,7 +49,8 @@ const Footer = () => {
                     <div className="flex flex-col lg:mt-4 items-start w-full md:col-span-2 lg:col-span-1">
                         <h3 className="font-semibold text-lg mb-4 text-red-900">Contact Us</h3>
                         <address className="not-italic space-y-4 text-red-800 w-full">
-                            <p className="flex items-start">                                <LocationIcon className="mt-1 mr-2 flex-shrink-0" />
+                            <p className="flex items-start">                                
+                                <LocationIcon className="mt-1 mr-2 flex-shrink-0" />
                                 <span>Gondalanwala Village, Ali pur Chatha Road, Gujranwala Punjab Pakistan</span>
                             </p>
                             <p className="flex items-center flex-wrap">
@@ -66,7 +67,7 @@ const Footer = () => {
                             </p>
                             <p className="flex items-center flex-wrap">
                                 <PhoneIcon className="mr-2 flex-shrink-0" />
-                                <span className="text-red-900 font-semibold">Kashif Shahzad: &nbsp;</span>
+                                <span className="text-red-900 font-semibold">Dr. Kashif Shahzad: &nbsp;</span>
                                 <a href={`tel:${phoneNumber}`} className="hover:text-red-600 transition-colors">
                                     {spaceInNumber(phoneNumber)}
                                 </a>
