@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SubmittedForm from './SubmittedForm';
 
 // Google Form URL and entry keys
 const GOOGLE_FORM_URL =
@@ -114,10 +115,10 @@ const Form = ({ userEmail }: FormProps) => {
         data.append(ENTRY_KEYS[11], form.bloodScreening);
         data.append(ENTRY_KEYS[12], form.chronicIllness);
         data.append(ENTRY_KEYS[13], form.everDonated);
-        data.append(ENTRY_KEYS[14], form.lastDonationYear || '');
-        data.append(ENTRY_KEYS[15], form.lastDonationMonth || '');
-        data.append(ENTRY_KEYS[16], form.lastDonationDay || '');
-        data.append(ENTRY_KEYS[17], form.donationCount || '');
+        data.append(ENTRY_KEYS[14], form.everDonated? form.lastDonationYear || '': '');
+        data.append(ENTRY_KEYS[15], form.everDonated? form.lastDonationMonth || '': '');
+        data.append(ENTRY_KEYS[16], form.everDonated? form.lastDonationDay || '': '');
+        data.append(ENTRY_KEYS[17], form.everDonated? form.donationCount || '': '');
         data.append(ENTRY_KEYS[18], form.willingToDonate);
         data.append(ENTRY_KEYS[19], form.recordedEmail);
         try {
@@ -134,6 +135,10 @@ const Form = ({ userEmail }: FormProps) => {
             setLoading(false);
         }
     };
+
+    if (success) {
+        return <SubmittedForm />;
+    }
 
     return (
         <section className="w-full max-w-xl mx-auto bg-white rounded-2xl shadow-lg border border-red-200 p-8 max-[500px]:px-4 max-[320px]:px-2 my-8">

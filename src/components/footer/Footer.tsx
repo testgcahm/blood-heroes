@@ -20,7 +20,7 @@ const Footer = () => {
         setCopiedEmail(true);
         setTimeout(() => setCopiedEmail(false), 2000);
     }; return (
-        <footer className="shadow-top mt-10 bg-white shadow-md shadow-red-800/10 border-t-2 border-t-red-700 text-red-900 py-8 px-4 sm:px-8">
+        <footer className="shadow-top mt-10 bg-white border-t border-t-red-700 text-red-900 py-8 px-4 sm:px-8">
             <div className="max-w-7xl mx-auto w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_3fr] gap-10 lg:gap-16 items-start">
                     {/* Logo and About */}
@@ -49,31 +49,35 @@ const Footer = () => {
                     <div className="flex flex-col lg:mt-4 items-start w-full md:col-span-2 lg:col-span-1">
                         <h3 className="font-semibold text-lg mb-4 text-red-900">Contact Us</h3>
                         <address className="not-italic space-y-4 text-red-800 w-full">
-                            <p className="flex items-start">                                
+                            <p className="flex items-start">
                                 <LocationIcon className="mt-1 mr-2 flex-shrink-0" />
                                 <span>Gondalanwala Village, Ali pur Chatha Road, Gujranwala Punjab Pakistan</span>
                             </p>
                             <p className="flex items-center flex-wrap">
                                 <EmailIcon className="mr-2 flex-shrink-0" />
-                                <a href="mailto:gmcislamicsociety1199@gmail.com" className="hover:text-red-600 transition-colors break-all">
-                                    {email}
-                                </a>
-                                <button onClick={handleCopyEmail} className="ml-2 cursor-pointer hover:text-red-600 text-red-800 transition" aria-label="Copy email address">
-                                    <Copy size={18} />
-                                </button>
+                                <div>
+                                    <a href="mailto:gmcislamicsociety1199@gmail.com" className="hover:text-red-600 transition-colors break-all">
+                                        {email}
+                                    </a>
+                                    <button onClick={handleCopyEmail} className="ml-2 cursor-pointer hover:text-red-600 text-red-800 transition" aria-label="Copy email address">
+                                        <Copy size={18} />
+                                    </button>
+                                </div>
                                 {copiedEmail && (
                                     <span className="ml-2 text-xs bg-red-100 text-red-900 px-2 py-1 rounded shadow animate-bounce">Copied!</span>
                                 )}
                             </p>
                             <p className="flex items-center flex-wrap">
                                 <PhoneIcon className="mr-2 flex-shrink-0" />
-                                <span className="text-red-900 font-semibold">Dr. Kashif Shahzad: &nbsp;</span>
-                                <a href={`tel:${phoneNumber}`} className="hover:text-red-600 transition-colors">
-                                    {spaceInNumber(phoneNumber)}
-                                </a>
-                                <button onClick={handleCopy} className="ml-2 cursor-pointer hover:text-red-600 text-red-800 transition" aria-label="Copy phone number">
-                                    <Copy size={18} />
-                                </button>
+                                <div>
+                                    <span className="text-red-900 font-semibold">Dr. Kashif Shahzad: &nbsp;</span>
+                                    <a href={`tel:${phoneNumber}`} className="hover:text-red-600 transition-colors">
+                                        {spaceInNumber(phoneNumber)}
+                                    </a>
+                                    <button onClick={handleCopy} className="ml-2 cursor-pointer hover:text-red-600 text-red-800 transition" aria-label="Copy phone number">
+                                        <Copy size={18} />
+                                    </button>
+                                </div>
                                 {copied && (
                                     <span className="ml-2 text-xs bg-red-100 text-red-900 px-2 py-1 rounded shadow animate-bounce">Copied!</span>
                                 )}
