@@ -58,8 +58,7 @@ const Form = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
@@ -176,8 +175,7 @@ const Form = () => {
           <input name="address" value={form.address} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Your address (optional)" />
         </div>
         <div>
-          <label className="block font-semibold text-red-900 mb-1">Date of Birth</label>
-          <div className="flex gap-2">
+          <label className="block font-semibold text-red-900 mb-1">Date of Birth</label>          <div className="flex gap-2">
             <input name="dobYear" type="number" min="1900" max="2100" value={form.dobYear} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Year" />
             <input name="dobMonth" type="number" min="1" max="12" value={form.dobMonth} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Month" />
             <input name="dobDay" type="number" min="1" max="31" value={form.dobDay} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Day" />
