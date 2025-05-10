@@ -263,9 +263,6 @@ const Form = () => {
               max={new Date().toISOString().split('T')[0]}
               placeholder="Pick date"
             />
-            <input name="lastDonationYear" type="number" min="1900" max="2100" value={form.lastDonationYear} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Year" />
-            <input name="lastDonationMonth" type="number" min="1" max="12" value={form.lastDonationMonth} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Month" />
-            <input name="lastDonationDay" type="number" min="1" max="31" value={form.lastDonationDay} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Day" />
           </div>
         </div>
         
