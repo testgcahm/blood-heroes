@@ -69,7 +69,7 @@ export default function Home() {
                 />
               </div>
             </div>
-            <Form />
+            <Form userEmail={user.email || ''} />
           </div>
         ) : (
           <GoogleLoginButton />

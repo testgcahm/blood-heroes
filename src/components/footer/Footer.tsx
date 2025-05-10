@@ -2,7 +2,7 @@
 import "@/app/shadow-top.css";
 import Link from 'next/link';
 import Image from 'next/image';
-import { EmailIcon, FacebookIcon, InstagramIcon, LocationIcon, PhoneIcon, WhatsAppIcon } from './FooterIcons';
+import { EmailIcon, InstagramIcon, LocationIcon, PhoneIcon, WhatsAppIcon } from './FooterIcons';
 import { Copy } from 'lucide-react';
 import React, { useState } from 'react';
 import { email, phoneNumber, spaceInNumber } from '../utils';
@@ -40,9 +40,8 @@ const Footer = () => {
                         <p className="text-red-800 text-left">
                             Bringing people together to save lives, spread awareness, and make blood donation a habit through the Blood Heroes community                        </p>
                         <div className="flex space-x-4 mt-2">
-                            <SocialIcon href="https://www.facebook.com/people/GMC-Islamic-Society/100067471032724/" icon="facebook" />
-                            <SocialIcon href="https://www.instagram.com/islamicsociety_gmc/" icon="instagram" />
-                            <SocialIcon href="https://whatsapp.com/channel/0029Vb9V8EWLNSa2uew73k28" icon="whatsapp" />
+                            <SocialIcon href="https://www.instagram.com/bloodheroesgmc?igsh=MWhvYTFxbm9lOWNjZw==" icon="instagram" />
+                            <SocialIcon href="https://chat.whatsapp.com/HKQ4CswhYjJKlGkozmus0g" icon="whatsapp" />
                         </div>
                     </div>
 
@@ -67,6 +66,7 @@ const Footer = () => {
                             </p>
                             <p className="flex items-center flex-wrap">
                                 <PhoneIcon className="mr-2 flex-shrink-0" />
+                                <span className="text-red-900 font-semibold">Kashif Shahzad: &nbsp;</span>
                                 <a href={`tel:${phoneNumber}`} className="hover:text-red-600 transition-colors">
                                     {spaceInNumber(phoneNumber)}
                                 </a>
@@ -117,7 +117,6 @@ const SocialIcon = ({ href, icon }: { href: string; icon: string }) => {
             rel="noopener noreferrer"
             className="h-9 w-9 rounded-full bg-red-900 flex items-center justify-center hover:bg-red-700 transition-colors"
         >
-            {icon === 'facebook' && <FacebookIcon />}
             {icon === 'instagram' && <InstagramIcon />}
             {icon === 'whatsapp' && <WhatsAppIcon />}
         </a>

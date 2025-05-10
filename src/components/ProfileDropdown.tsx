@@ -33,7 +33,7 @@ export default function ProfileDropdown({
   }, [showDropdown, setShowDropdown]);
 
   return (
-    <div>
+    <div className='relative'>
       <button
         ref={buttonRef}
         className="flex cursor-pointer items-center justify-center max-[470px]:w-8 max-[470px]:h-8 w-10 h-10 rounded-full bg-red-800 hover:bg-red-900 text-white focus:outline-none"
@@ -45,7 +45,7 @@ export default function ProfileDropdown({
       {showDropdown && (
         <div
           ref={dropdownRef}
-          className="absolute right-0 top-12 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-20 animate-fade-in"
+          className="absolute right-5 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-20 animate-fade-in"
         >
           <div className="px-4 py-3 border-b border-gray-100">
             <p className="text-sm text-gray-700 font-semibold text-wrap break-all">{userEmail || 'No email'}</p>
