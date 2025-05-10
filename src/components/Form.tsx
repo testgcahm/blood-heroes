@@ -94,6 +94,13 @@ const Form = ({ userEmail }: FormProps) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
+    // Prevent Enter key from submitting the form in text and radio inputs
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -141,7 +148,7 @@ const Form = ({ userEmail }: FormProps) => {
     }
 
     return (
-        <section className="w-full max-w-xl mx-auto bg-white rounded-2xl shadow-lg border border-red-200 p-8 max-sm:mx-10 mr-10 max-[500px]:px-4 max-[320px]:px-2 my-8">
+        <section className="w-full max-w-xl mx-auto bg-white rounded-2xl shadow-lg border border-red-200 p-8 max-[500px]:px-4 max-[320px]:px-2 my-8">
             <h2 className="text-3xl font-bold text-red-800 mb-6 text-center">Blood Donation Form</h2>
             {success && (
                 <div className="mb-4 p-3 bg-green-100 text-green-800 rounded text-center font-semibold">Thank you! Your response has been recorded.</div>
@@ -152,22 +159,22 @@ const Form = ({ userEmail }: FormProps) => {
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Full Name <span className="text-red-500">*</span></label>
-                    <input name="name" value={form.name} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your name" />
+                    <input name="name" value={form.name} onChange={handleChange} onKeyDown={handleKeyDown} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your name" />
                 </div>
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Father's Name <span className="text-red-500">*</span></label>
-                    <input name="fatherName" value={form.fatherName} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your father's name" />
+                    <input name="fatherName" value={form.fatherName} onChange={handleChange} onKeyDown={handleKeyDown} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your father's name" />
                 </div>
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Email <span className="text-red-500">*</span></label>
-                    <input name="email" type="email" value={form.email} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your email" />
+                    <input name="email" type="email" value={form.email} onChange={handleChange} onKeyDown={handleKeyDown} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your email" />
                 </div>
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Age <span className="text-red-500">*</span></label>
-                    <input name="age" type="number" min={5} max={80} value={form.age} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your age" />
+                    <input name="age" type="number" min={5} max={80} value={form.age} onChange={handleChange} onKeyDown={handleKeyDown} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your age" />
                 </div>
 
                 <div>
@@ -180,27 +187,27 @@ const Form = ({ userEmail }: FormProps) => {
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Institute (College/Hospital) <span className="text-red-500">*</span></label>
-                    <input name="institute" value={form.institute} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your institute" />
+                    <input name="institute" value={form.institute} onChange={handleChange} onKeyDown={handleKeyDown} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your institute" />
                 </div>
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Degree/Designation <span className="text-red-500">*</span></label>
-                    <input name="designation" value={form.designation} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your degree or designation" />
+                    <input name="designation" value={form.designation} onChange={handleChange} onKeyDown={handleKeyDown} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your degree or designation" />
                 </div>
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Department/Ward</label>
-                    <input name="department" value={form.department} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your department or ward" />
+                    <input name="department" value={form.department} onChange={handleChange} onKeyDown={handleKeyDown} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your department or ward" />
                 </div>
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Contact Number (WhatsApp) <span className="text-red-500">*</span></label>
-                    <input name="contactNumber" value={form.contactNumber} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your WhatsApp number" />
+                    <input name="contactNumber" value={form.contactNumber} onChange={handleChange} onKeyDown={handleKeyDown} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your WhatsApp number" />
                 </div>
 
                 <div>
                     <label className="block font-semibold text-red-900 mb-1">Residence (City Name) <span className="text-red-500">*</span></label>
-                    <input name="residence" value={form.residence} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your city of residence" />
+                    <input name="residence" value={form.residence} onChange={handleChange} onKeyDown={handleKeyDown} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your city of residence" />
                 </div>
 
                 <div>
@@ -222,6 +229,7 @@ const Form = ({ userEmail }: FormProps) => {
                                     value={opt}
                                     checked={form.bloodScreening === opt}
                                     onChange={handleChange}
+                                    onKeyDown={handleKeyDown}
                                     required
                                     className="cursor-pointer"
                                 />
@@ -242,6 +250,7 @@ const Form = ({ userEmail }: FormProps) => {
                                     value={opt}
                                     checked={form.chronicIllness === opt}
                                     onChange={handleChange}
+                                    onKeyDown={handleKeyDown}
                                     required
                                     className="cursor-pointer"
                                 />
@@ -262,6 +271,7 @@ const Form = ({ userEmail }: FormProps) => {
                                     value={opt}
                                     checked={form.everDonated === opt}
                                     onChange={handleChange}
+                                    onKeyDown={handleKeyDown}
                                     required
                                     className="cursor-pointer"
                                 />
@@ -275,7 +285,9 @@ const Form = ({ userEmail }: FormProps) => {
                 {form.everDonated === 'Yes' && (
                     <>
                         <div>
-                            <label className="block font-semibold text-red-900 mb-1">If yes, when did you donate last time?</label>
+                            <label className="block font-semibold text-red-900 mb-1">
+                                If yes, when did you donate last time?
+                            </label>
                             <div className="flex gap-2 items-center">
                                 {/* Calendar input */}
                                 <input
@@ -290,7 +302,7 @@ const Form = ({ userEmail }: FormProps) => {
                         </div>
                         <div>
                             <label className="block font-semibold text-red-900 mb-1">How many times have you donated blood if you did?</label>
-                            <input name="donationCount" type="number" min="0" value={form.donationCount} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter number of donations" />
+                            <input name="donationCount" type="number" min="0" value={form.donationCount} onChange={handleChange} onKeyDown={handleKeyDown} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter number of donations" />
                         </div>
                     </>
                 )}
@@ -306,6 +318,7 @@ const Form = ({ userEmail }: FormProps) => {
                                     value={opt}
                                     checked={form.willingToDonate === opt}
                                     onChange={handleChange}
+                                    onKeyDown={handleKeyDown}
                                     required
                                     className="cursor-pointer"
                                 />

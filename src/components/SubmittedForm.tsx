@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const SubmittedForm = () => {
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, []);
+
     return (
         <section className="w-full max-w-xl mx-auto bg-white rounded-2xl shadow-lg border border-red-200 p-8 max-[500px]:px-4 max-[320px]:px-2 my-8 flex flex-col items-center justify-center">
             <svg width="64" height="64" fill="none" viewBox="0 0 24 24" className="mb-4 text-red-600"><circle cx="12" cy="12" r="12" fill="#FEE2E2"/><path d="M7 13l3 3 7-7" stroke="#B91C1C" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
