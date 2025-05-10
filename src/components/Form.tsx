@@ -148,7 +148,7 @@ const Form = ({ userEmail }: FormProps) => {
     }
 
     return (
-        <section className="w-full max-w-xl mx-auto bg-white rounded-2xl shadow-lg border border-red-200 p-8 max-[500px]:px-4 max-[320px]:px-2 my-8">
+        <section className="w-full max-w-[700px] mx-auto bg-white rounded-2xl shadow-lg border border-red-200 p-8 max-[500px]:px-4 max-[320px]:px-2 my-8">
             <h2 className="text-3xl font-bold text-red-800 mb-6 text-center">Blood Donation Form</h2>
             {success && (
                 <div className="mb-4 p-3 bg-green-100 text-green-800 rounded text-center font-semibold">Thank you! Your response has been recorded.</div>

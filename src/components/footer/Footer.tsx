@@ -46,7 +46,7 @@ const Footer = () => {
                     </div>
 
                     {/* Contact Us */}
-                    <div className="flex flex-col lg:mt-4 items-start w-full md:col-span-2 lg:col-span-1">
+                    <div className="flex flex-col lg:mt-4 items-start w-full col-span-2">
                         <h3 className="font-semibold text-lg mb-4 text-red-900">Contact Us</h3>
                         <address className="not-italic space-y-4 text-red-800 w-full">
                             <div className="flex items-start">

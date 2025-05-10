@@ -47,7 +47,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex justify-center p-1 mt-8">
+      <div className="flex justify-center p-1 min-[500px]:p-3 mt-8">
         {loading ? (
           <div className="flex h-[50vh] items-center justify-center">
             <ModernSpinner />
