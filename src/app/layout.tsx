@@ -36,7 +36,7 @@ export const metadata: Metadata = {
     siteName: "Blood Heroes",
     images: [
       {
-        url: "/logo.png",
+        url: "/Logo.png",
         width: 512,
         height: 512,
         alt: "Blood Heroes Logo",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Blood Heroes | Donate Blood, Save Lives",
     description: "Join Blood Heroes to donate blood, find donors, and save lives.",
-    images: ["/logo.png"],
+    images: ["/Logo.png"],
   },
 };
 
