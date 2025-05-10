@@ -51,7 +51,7 @@ export default function ProfileDropdown({
             <p className="text-sm text-gray-700 font-semibold text-wrap break-all">{userEmail || 'No email'}</p>
           </div>
           <button
-            className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100 rounded-b-lg"
+            className="w-full cursor-pointer text-left px-4 py-2 text-red-600 hover:bg-gray-100 rounded-b-lg"
             onClick={handleLogout}
           >
             Logout
