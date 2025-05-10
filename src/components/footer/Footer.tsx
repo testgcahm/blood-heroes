@@ -49,11 +49,11 @@ const Footer = () => {
                     <div className="flex flex-col lg:mt-4 items-start w-full md:col-span-2 lg:col-span-1">
                         <h3 className="font-semibold text-lg mb-4 text-red-900">Contact Us</h3>
                         <address className="not-italic space-y-4 text-red-800 w-full">
-                            <p className="flex items-start">
+                            <div className="flex items-start">
                                 <LocationIcon className="mt-1 mr-2 flex-shrink-0" />
                                 <span>Gondalanwala Village, Ali pur Chatha Road, Gujranwala Punjab Pakistan</span>
-                            </p>
-                            <p className="flex items-center flex-wrap">
+                            </div>
+                            <div className="flex items-center flex-wrap">
                                 <EmailIcon className="mr-2 flex-shrink-0" />
                                 <div>
                                     <a href="mailto:gmcislamicsociety1199@gmail.com" className="hover:text-red-600 transition-colors break-all">
@@ -66,8 +66,8 @@ const Footer = () => {
                                 {copiedEmail && (
                                     <span className="ml-2 text-xs bg-red-100 text-red-900 px-2 py-1 rounded shadow animate-bounce">Copied!</span>
                                 )}
-                            </p>
-                            <p className="flex items-center flex-wrap">
+                            </div>
+                            <div className="flex items-center flex-wrap">
                                 <PhoneIcon className="mr-2 flex-shrink-0" />
                                 <div>
                                     <span className="text-red-900 font-semibold">Dr. Kashif Shahzad: &nbsp;</span>
@@ -81,7 +81,7 @@ const Footer = () => {
                                 {copied && (
                                     <span className="ml-2 text-xs bg-red-100 text-red-900 px-2 py-1 rounded shadow animate-bounce">Copied!</span>
                                 )}
-                            </p>
+                            </div>
                         </address>
                         <div className="mt-4 rounded max-w-[800px] overflow-hidden shadow-lg w-full h-48 md:h-56">
                             <iframe
