@@ -22,7 +22,7 @@ export default function GoogleLoginButton() {
   };
 
   return (
-    <div className="flex flex-col items-center w-full mt-10 mx-auto p-4">
+    <div className="flex flex-col items-center w-full mt-10 mb-20 mx-auto p-4">
       <p className="mb-4 text-center font-semibold md:text-lg text-red-900">
         Please sign in to fill the form for Blood Heroes Society
       </p>

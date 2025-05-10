@@ -20,24 +20,25 @@ const Footer = () => {
         setCopiedEmail(true);
         setTimeout(() => setCopiedEmail(false), 2000);
     }; return (
-        <footer className="shadow-top bg-white shadow-md shadow-red-800/10 border-t-2 border-t-red-700 text-red-900 py-8 px-4 sm:px-8">
+        <footer className="shadow-top mt-10 bg-white shadow-md shadow-red-800/10 border-t-2 border-t-red-700 text-red-900 py-8 px-4 sm:px-8">
             <div className="max-w-7xl mx-auto w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_3fr] gap-10 lg:gap-16 items-start">
                     {/* Logo and About */}
                     <div className="space-y-2 flex flex-col items-start md:col-span-1">
                         <div className="flex items-center">
-                            <div className="relative mr-2">                                <Image
-                                src="/logo.png"
-                                alt="Blood Heroes Society Logo"
-                                width={64}
-                                height={64}
-                                className="object-contain"
-                            />
+                            <div className="relative mr-2">
+                                <Image
+                                    src="/Logo.png"
+                                    alt="Blood Heroes Society Logo"
+                                    width={64}
+                                    height={64}
+                                    className="object-contain"
+                                />
                             </div>
                             <span className="font-bold text-xl text-red-900">Blood Heroes</span>
-                        </div>                        <p className="text-red-800 text-left">
-                            Fostering spiritual growth, community service, and Islamic education within the Gujranwala Medical College community.
-                        </p>
+                        </div>
+                        <p className="text-red-800 text-left">
+                            Bringing people together to save lives, spread awareness, and make blood donation a habit through the Blood Heroes community                        </p>
                         <div className="flex space-x-4 mt-2">
                             <SocialIcon href="https://www.facebook.com/people/GMC-Islamic-Society/100067471032724/" icon="facebook" />
                             <SocialIcon href="https://www.instagram.com/islamicsociety_gmc/" icon="instagram" />

@@ -5,59 +5,79 @@ const GOOGLE_FORM_URL =
   'https://docs.google.com/forms/d/e/1FAIpQLSesY4e3Igrh0XPllmyGXKvMTN2Pj4G6GzA6w8jI4VGUAWXUYg/formResponse';
 const ENTRY_KEYS = [
   'entry.150065395', // Name
-  'entry.1464641355', // Email
-  'entry.368614909', // Phone
-  'entry.1850773060', // Blood Group
+  'entry.1464641355', // Father Name
+  'entry.368614909', // Email
+  'entry.1850773060', // Age
   'entry.741866530', // Gender
-  'entry.1393468182', // City
-  'entry.1282102385', // Age
-  'entry.1267604661', // Last Donation Date (year)
-  'entry.2113193451', // Last Donation Date (month)
-  'entry.1727516375', // Last Donation Date (day)
-  'entry.870661058', // Willing to donate
-  'entry.1259821872', // Emergency Contact
-  'entry.508092005', // Institute
-  'entry.818348265', // Address
-  'entry.1203586957_year', // DOB year
-  'entry.1203586957_month', // DOB month
-  'entry.1203586957_day', // DOB day
-  'entry.706128420', // Any disease
-  'entry.831136185', // Message
+  'entry.1393468182', // Institute (College/Hospital)
+  'entry.1282102385', // Degree/Designation
+  'entry.1267604661', // Department/Ward
+  'entry.2113193451', // Contact Number (WhatsApp)
+  'entry.1727516375', // Residence (City Name)
+  'entry.870661058', // Blood Group
+  'entry.1259821872', // Have you ever done screening of your blood? (Hepatitis, HIV etc)
+  'entry.508092005', // Have you ever been suffered from any chronic illness? (TB, Hepatitis etc)
+  'entry.818348265', // Have you ever donated blood?
+  'entry.1203586957_year', // If yes, when did you donate last time? Year
+  'entry.1203586957_month', // If yes, when did you donate last time? month
+  'entry.1203586957_day', // If yes, when did you donate last time? day
+  'entry.706128420', // How many times have you donated blood if you did?
+  'entry.831136185', // Are you willing to donate if needed?
 ];
 
 const initialState = {
   name: '',
+  fatherName: '',
   email: '',
-  phone: '',
-  bloodGroup: '',
-  gender: '',
-  city: '',
   age: '',
+  gender: '',
+  institute: '',
+  designation: '',
+  department: '',
+  contactNumber: '',
+  residence: '',
+  bloodGroup: '',
+  bloodScreening: '',
+  chronicIllness: '',
+  everDonated: '',
   lastDonationYear: '',
   lastDonationMonth: '',
   lastDonationDay: '',
-  willing: '',
-  emergency: '',
-  institute: '',
-  address: '',
-  dobYear: '',
-  dobMonth: '',
-  dobDay: '',
-  disease: '',
-  message: '',
+  donationCount: '',
+  willingToDonate: '',
 };
 
 const bloodGroups = [
-  'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'
+  'A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-', "Don't know"
 ];
-const genders = ['Male', 'Female', 'Other'];
-const willingOptions = ['Yes', 'No'];
+const genders = ['Male', 'Female'];
+const yesNoOptions = ['Yes', 'No'];
 
 const Form = () => {
   const [form, setForm] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+  // Add a handler for date input to sync year/month/day
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const dateValue = e.target.value; // format: YYYY-MM-DD
+    if (dateValue) {
+      const [year, month, day] = dateValue.split('-');
+      setForm({
+        ...form,
+        lastDonationYear: year,
+        lastDonationMonth: month,
+        lastDonationDay: day,
+      });
+    } else {
+      setForm({
+        ...form,
+        lastDonationYear: '',
+        lastDonationMonth: '',
+        lastDonationDay: '',
+      });
+    }
+  };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -70,24 +90,24 @@ const Form = () => {
     // Map form fields to Google Form entry keys
     const data = new FormData();
     data.append(ENTRY_KEYS[0], form.name);
-    data.append(ENTRY_KEYS[1], form.email);
-    data.append(ENTRY_KEYS[2], form.phone);
-    data.append(ENTRY_KEYS[3], form.bloodGroup);
+    data.append(ENTRY_KEYS[1], form.fatherName);
+    data.append(ENTRY_KEYS[2], form.email);
+    data.append(ENTRY_KEYS[3], form.age);
     data.append(ENTRY_KEYS[4], form.gender);
-    data.append(ENTRY_KEYS[5], form.city);
-    data.append(ENTRY_KEYS[6], form.age);
-    data.append(ENTRY_KEYS[7], form.lastDonationYear);
-    data.append(ENTRY_KEYS[8], form.lastDonationMonth);
-    data.append(ENTRY_KEYS[9], form.lastDonationDay);
-    data.append(ENTRY_KEYS[10], form.willing);
-    data.append(ENTRY_KEYS[11], form.emergency);
-    data.append(ENTRY_KEYS[12], form.institute);
-    data.append(ENTRY_KEYS[13], form.address);
-    data.append(ENTRY_KEYS[14], form.dobYear);
-    data.append(ENTRY_KEYS[15], form.dobMonth);
-    data.append(ENTRY_KEYS[16], form.dobDay);
-    data.append(ENTRY_KEYS[17], form.disease);
-    data.append(ENTRY_KEYS[18], form.message);
+    data.append(ENTRY_KEYS[5], form.institute);
+    data.append(ENTRY_KEYS[6], form.designation);
+    data.append(ENTRY_KEYS[7], form.department);
+    data.append(ENTRY_KEYS[8], form.contactNumber);
+    data.append(ENTRY_KEYS[9], form.residence);
+    data.append(ENTRY_KEYS[10], form.bloodGroup);
+    data.append(ENTRY_KEYS[11], form.bloodScreening);
+    data.append(ENTRY_KEYS[12], form.chronicIllness);
+    data.append(ENTRY_KEYS[13], form.everDonated);
+    data.append(ENTRY_KEYS[14], form.lastDonationYear || '');
+    data.append(ENTRY_KEYS[15], form.lastDonationMonth || '');
+    data.append(ENTRY_KEYS[16], form.lastDonationDay || '');
+    data.append(ENTRY_KEYS[17], form.donationCount || '');
+    data.append(ENTRY_KEYS[18], form.willingToDonate);
     try {
       await fetch(GOOGLE_FORM_URL, {
         method: 'POST',
@@ -114,81 +134,165 @@ const Form = () => {
       )}
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block font-semibold text-red-900 mb-1">Full Name *</label>
+          <label className="block font-semibold text-red-900 mb-1">Full Name <span className="text-red-500">*</span></label>
           <input name="name" value={form.name} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your name" />
         </div>
+        
         <div>
-          <label className="block font-semibold text-red-900 mb-1">Email *</label>
+          <label className="block font-semibold text-red-900 mb-1">Father's Name <span className="text-red-500">*</span></label>
+          <input name="fatherName" value={form.fatherName} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your father's name" />
+        </div>
+        
+        <div>
+          <label className="block font-semibold text-red-900 mb-1">Email <span className="text-red-500">*</span></label>
           <input name="email" type="email" value={form.email} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your email" />
         </div>
+        
         <div>
-          <label className="block font-semibold text-red-900 mb-1">Phone *</label>
-          <input name="phone" value={form.phone} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="03XXXXXXXXX" />
+          <label className="block font-semibold text-red-900 mb-1">Age <span className="text-red-500">*</span></label>
+          <input name="age" type="number" min="16" max="70" value={form.age} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your age" />
         </div>
+        
         <div>
-          <label className="block font-semibold text-red-900 mb-1">Blood Group *</label>
-          <select name="bloodGroup" value={form.bloodGroup} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300">
-            <option value="">Select</option>
-            {bloodGroups.map(bg => <option key={bg} value={bg}>{bg}</option>)}
-          </select>
-        </div>
-        <div>
-          <label className="block font-semibold text-red-900 mb-1">Gender *</label>
+          <label className="block font-semibold text-red-900 mb-1">Gender <span className="text-red-500">*</span></label>
           <select name="gender" value={form.gender} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300">
             <option value="">Select</option>
             {genders.map(g => <option key={g} value={g}>{g}</option>)}
           </select>
         </div>
+        
         <div>
-          <label className="block font-semibold text-red-900 mb-1">City *</label>
-          <input name="city" value={form.city} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your city" />
+          <label className="block font-semibold text-red-900 mb-1">Institute (College/Hospital) <span className="text-red-500">*</span></label>
+          <input name="institute" value={form.institute} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your institute" />
         </div>
+        
         <div>
-          <label className="block font-semibold text-red-900 mb-1">Age *</label>
-          <input name="age" type="number" min="16" max="70" value={form.age} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your age" />
+          <label className="block font-semibold text-red-900 mb-1">Degree/Designation <span className="text-red-500">*</span></label>
+          <input name="designation" value={form.designation} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your degree or designation" />
         </div>
+        
         <div>
-          <label className="block font-semibold text-red-900 mb-1">Last Donation Date</label>
-          <div className="flex gap-2">
+          <label className="block font-semibold text-red-900 mb-1">Department/Ward</label>
+          <input name="department" value={form.department} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your department or ward" />
+        </div>
+        
+        <div>
+          <label className="block font-semibold text-red-900 mb-1">Contact Number (WhatsApp) <span className="text-red-500">*</span></label>
+          <input name="contactNumber" value={form.contactNumber} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your WhatsApp number" />
+        </div>
+        
+        <div>
+          <label className="block font-semibold text-red-900 mb-1">Residence (City Name) <span className="text-red-500">*</span></label>
+          <input name="residence" value={form.residence} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter your city of residence" />
+        </div>
+        
+        <div>
+          <label className="block font-semibold text-red-900 mb-1">Blood Group <span className="text-red-500">*</span></label>
+          <select name="bloodGroup" value={form.bloodGroup} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300">
+            <option value="">Select</option>
+            {bloodGroups.map(bg => <option key={bg} value={bg}>{bg}</option>)}
+          </select>
+        </div>
+        
+        <div>
+          <label className="block font-semibold text-red-900 mb-1">Have you ever done screening of your blood? (Hepatitis, HIV etc) <span className="text-red-500">*</span></label>
+          <div className="flex gap-6">
+            {yesNoOptions.map(opt => (
+              <label key={opt} className="inline-flex items-center gap-1">
+                <input
+                  type="radio"
+                  name="bloodScreening"
+                  value={opt}
+                  checked={form.bloodScreening === opt}
+                  onChange={handleChange}
+                  required
+                />
+                {opt}
+              </label>
+            ))}
+          </div>
+        </div>
+        
+        <div>
+          <label className="block font-semibold text-red-900 mb-1">Have you ever been suffered from any chronic illness? (TB, Hepatitis etc) <span className="text-red-500">*</span></label>
+          <div className="flex gap-6">
+            {yesNoOptions.map(opt => (
+              <label key={opt} className="inline-flex items-center gap-1">
+                <input
+                  type="radio"
+                  name="chronicIllness"
+                  value={opt}
+                  checked={form.chronicIllness === opt}
+                  onChange={handleChange}
+                  required
+                />
+                {opt}
+              </label>
+            ))}
+          </div>
+        </div>
+        
+        <div>
+          <label className="block font-semibold text-red-900 mb-1">Have you ever donated blood? <span className="text-red-500">*</span></label>
+          <div className="flex gap-6">
+            {yesNoOptions.map(opt => (
+              <label key={opt} className="inline-flex items-center gap-1">
+                <input
+                  type="radio"
+                  name="everDonated"
+                  value={opt}
+                  checked={form.everDonated === opt}
+                  onChange={handleChange}
+                  required
+                />
+                {opt}
+              </label>
+            ))}
+          </div>
+        </div>
+        
+        <div>
+          <label className="block font-semibold text-red-900 mb-1">If yes, when did you donate last time?</label>
+          <div className="flex gap-2 items-center">
+            {/* Calendar input */}
+            <input
+              type="date"
+              className="p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300"
+              value={form.lastDonationYear && form.lastDonationMonth && form.lastDonationDay ? `${form.lastDonationYear}-${form.lastDonationMonth.padStart(2, '0')}-${form.lastDonationDay.padStart(2, '0')}` : ''}
+              onChange={handleDateChange}
+              max={new Date().toISOString().split('T')[0]}
+              placeholder="Pick date"
+            />
             <input name="lastDonationYear" type="number" min="1900" max="2100" value={form.lastDonationYear} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Year" />
             <input name="lastDonationMonth" type="number" min="1" max="12" value={form.lastDonationMonth} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Month" />
             <input name="lastDonationDay" type="number" min="1" max="31" value={form.lastDonationDay} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Day" />
           </div>
         </div>
+        
         <div>
-          <label className="block font-semibold text-red-900 mb-1">Are you willing to donate? *</label>
-          <select name="willing" value={form.willing} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300">
-            <option value="">Select</option>
-            {willingOptions.map(opt => <option key={opt} value={opt}>{opt}</option>)}
-          </select>
+          <label className="block font-semibold text-red-900 mb-1">How many times have you donated blood if you did?</label>
+          <input name="donationCount" type="number" min="0" value={form.donationCount} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Enter number of donations" />
         </div>
+        
         <div>
-          <label className="block font-semibold text-red-900 mb-1">Emergency Contact *</label>
-          <input name="emergency" value={form.emergency} onChange={handleChange} required className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Emergency contact number" />
-        </div>
-        <div>
-          <label className="block font-semibold text-red-900 mb-1">Institute</label>
-          <input name="institute" value={form.institute} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Your institute (optional)" />
-        </div>
-        <div>
-          <label className="block font-semibold text-red-900 mb-1">Address</label>
-          <input name="address" value={form.address} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Your address (optional)" />
-        </div>
-        <div>
-          <label className="block font-semibold text-red-900 mb-1">Date of Birth</label>          <div className="flex gap-2">
-            <input name="dobYear" type="number" min="1900" max="2100" value={form.dobYear} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Year" />
-            <input name="dobMonth" type="number" min="1" max="12" value={form.dobMonth} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Month" />
-            <input name="dobDay" type="number" min="1" max="31" value={form.dobDay} onChange={handleChange} className="w-1/3 p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Day" />
+          <label className="block font-semibold text-red-900 mb-1">Are you willing to donate if needed? <span className="text-red-500">*</span></label>
+          <div className="flex gap-6">
+            {yesNoOptions.map(opt => (
+              <label key={opt} className="inline-flex items-center gap-1">
+                <input
+                  type="radio"
+                  name="willingToDonate"
+                  value={opt}
+                  checked={form.willingToDonate === opt}
+                  onChange={handleChange}
+                  required
+                />
+                {opt}
+              </label>
+            ))}
           </div>
         </div>
-        <div>
-          <label className="block font-semibold text-red-900 mb-1">Any disease/condition?</label>
-          <input name="disease" value={form.disease} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Mention if any (optional)" />
-        </div>
-        <div>
-          <label className="block font-semibold text-red-900 mb-1">Message</label>
-          <textarea name="message" value={form.message} onChange={handleChange} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-red-800 border-gray-300" placeholder="Any message (optional)" rows={3} />
-        </div>
+        
         <button
           type="submit"
           className="w-full bg-red-800 font-semibold text-white p-3 rounded-lg hover:bg-red-900 hover:scale-[1.02] transition-all duration-300 shadow-md flex justify-center items-center disabled:opacity-60 disabled:cursor-not-allowed"
