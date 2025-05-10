@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     title: "Blood Heroes | Donate Blood, Save Lives",
     description:
       "Join Blood Heroes to donate blood, find donors, and save lives. Connect with a community dedicated to making a difference through blood donation.",
-    url: "https://blood-heroes.vercel.app",
+    url: "https://gmc-blood-heroes.vercel.app",
     siteName: "Blood Heroes",
     images: [
       {
